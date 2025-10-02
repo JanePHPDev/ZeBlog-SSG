@@ -20,7 +20,7 @@ ZeBlog 是一个轻量级的 Node.js 静态博客生成器，灵感来源于 Hex
 确保 Node.js >= 18。
 
 ```bash
-git clone https://github.com/JanePHPDev/ZeBlog.git
+git clone https://github.com/JanePHPDev/ZeBlog-SSG.git
 cd ZeBlog
 npm install
 ```
