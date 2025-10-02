@@ -1,0 +1,87 @@
+<%- include('partials/header') -%>
+
+<section class="hero position-relative">
+  <div>
+    <img src="<%= site.avatar %>" class="avatar" alt="avatar">
+    <div class="name"><%= site.author %></div>
+    <div class="bio"><%= site.description %></div>
+    <div class="social">
+      <% if (social.github) { %><a href="<%= social.github %>" target="_blank" title="GitHub"><i class="fa fa-github"></i></a><% } %>
+      <% if (social.qq) { %><a href="<%= social.qq %>" target="_blank" title="QQ"><i class="fa fa-qq"></i></a><% } %>
+      <% if (social.email_link) { %><a href="<%= social.email_link %>" title="Email"><i class="fa fa-envelope"></i></a><% } %>
+    </div>
+  </div>
+  <a href="#posts" class="position-absolute bottom-0 mb-4 text-dark text-decoration-none">
+    <i class="fa fa-angle-double-down fa-2x bounce" aria-hidden="true"></i>
+  </a>
+</section>
+
+<style>@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.bounce{animation:bounce 1.5s infinite;}</style>
+
+<div class="container-lg pt-5" id="posts">
+  <div class="row gx-4">
+    <main class="col-lg-8">
+      <section class="py-5">
+        <h2 class="section-title">最新文章</h2>
+        <div class="row g-4">
+          <% if (posts && posts.length > 0) { %>
+            <% posts.slice(0, 4).forEach(post => { %>
+              <%- include('partials/card-item', {post, formatDate}) %>
+            <% }) %>
+          <% } else { %>
+            <div class="col-12 text-center text-muted">暂无文章</div>
+          <% } %>
+        </div>
+        <% if (posts.length > 4) { %>
+          <div class="text-center mt-5">
+            <a href="/post.html" class="btn btn-primary px-4">查看所有文章</a>
+          </div>
+        <% } %>
+      </section>
+    </main>
+
+    <aside class="col-lg-4">
+      <div class="sticky-lg-top" style="top:100px;z-index:1020;">
+        <section id="about" class="mb-4">
+          <h2 class="section-title">关于我</h2>
+          <div class="text-center mb-3">
+            <img src="<%= site.avatar %>"
+                 class="rounded-circle shadow-sm" width="120" height="120" alt="avatar">
+            <div class="mt-2">
+              <% if (social.github) { %><a href="<%= social.github %>" target="_blank" class="text-dark mx-1" title="GitHub"><i class="fa fa-github fa-lg"></i></a><% } %>
+              <% if (social.qq) { %><a href="<%= social.qq %>" target="_blank" class="text-dark mx-1" title="QQ"><i class="fa fa-qq fa-lg"></i></a><% } %>
+              <% if (social.email_link) { %><a href="<%= social.email_link %>" class="text-dark mx-1" title="Email"><i class="fa fa-envelope fa-lg"></i></a><% } %>
+            </div>
+          </div>
+          <p class="small text-muted">
+            <img src="https://skillicons.dev/icons?i=html,css,js,vscode,php,nginx,python,golang,aws,gcp,azure,vue,nodejs,git,docker,vim&theme=light&perline=8" class="w-100 mb-2"/>
+            <%= site.bio %>
+          </p>
+        </section>
+
+        <section id="tech-stack" class="mb-4">
+          <h4 class="section-title">技术栈</h4>
+          <div class="row g-3">
+            <% tech.forEach(item => { %>
+            <% const techItem = item.name ? item : Object.assign({}, item); %>
+            <div class="col-6">
+              <div class="card shadow-sm h-100">
+                <div class="card-body">
+                  <h6 class="mb-1"><%= techItem.name %></h6>
+                  <small class="text-muted"><%= techItem.desc %></small>
+                  <div class="progress mt-2">
+                    <div class="progress-bar bg-<%= techItem.color %>" style="width:<%= techItem.level %>%"></div>
+                  </div>
+                  <small class="text-<%= techItem.color %>"><%= techItem.label %></small>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+        </section>
+      </div>
+    </aside>
+  </div>
+</div>
+<%- include('partials/footer') -%>

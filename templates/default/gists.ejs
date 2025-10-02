@@ -1,0 +1,23 @@
+<%- include('partials/header', { code_highlight: false }) %>
+<div class="container" style="padding-top:50px;">
+<section id="gists" class="py-5">
+  <div class="container">
+    <h3 class="section-title">置顶 Gists</h3>
+    <p class="text-muted">
+      这些是我在 Gists 里挑选的，具有观赏性或者比较著名的代码片段。
+    </p>
+
+    <% gists.forEach(gist => { %>
+    <div class="gist-script mb-4"><script src="https://proxy.mengze.vip/proxy/<%= gist %>.js"></script></div>
+    <% }) %>
+
+    <div class="text-center mt-4">
+      <a href="/" class="btn btn-outline-primary">
+        <i class="fa fa-arrow-left"></i> 返回首页
+      </a>
+    </div>
+  </div>
+</section>
+</div>
+
+<%- include('partials/footer') %>

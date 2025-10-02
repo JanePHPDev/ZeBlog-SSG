@@ -1,0 +1,63 @@
+<%- include('partials/header') %>
+
+<span id="posts"></span>
+<div class="container-lg" style="padding-top:120px;">
+  <div class="row gx-4">
+    <!-- 左栏：文章列表 -->
+    <main class="col-lg-8">
+      <h2 class="section-title">文章列表</h2>
+      <div id="posts-container" class="row g-4">
+  <% if (posts && posts.length > 0) { %>
+    <% posts.forEach(post => { %>
+      <%- include('partials/card-item', {post, formatDate}) %>
+    <% }) %>
+  <% } else { %>
+    <div class="col-12 text-center text-muted">暂无文章</div>
+  <% } %>
+</div>
+    </main>
+
+    <aside class="col-lg-4">
+      <div class="sticky-lg-top" style="top:90px;z-index:1020;">
+        <section id="about" class="mb-4">
+          <h4 class="section-title">关于我</h4>
+          <div class="text-center mb-3">
+            <img src="<%= site.avatar %>" class="rounded-circle shadow-sm" width="90" height="90" alt="avatar">
+            <div class="mt-2">
+              <% if (social.github) { %><a href="<%= social.github %>" target="_blank" class="text-dark mx-1" title="GitHub"><i class="fa fa-github fa-lg"></i></a><% } %>
+              <% if (social.qq) { %><a href="<%= social.qq %>" target="_blank" class="text-dark mx-1" title="QQ"><i class="fa fa-qq fa-lg"></i></a><% } %>
+              <% if (social.email_link) { %><a href="<%= social.email_link %>" class="text-dark mx-1" title="Email"><i class="fa fa-envelope fa-lg"></i></a><% } %>
+            </div>
+          </div>
+          <p class="small text-muted">
+            <img src="https://skillicons.dev/icons?i=html,css,js,vscode,php,nginx,python,golang,aws,gcp,azure,vue,nodejs,git,docker,vim&theme=light&perline=8" class="w-100 mb-2"/>
+            <%= site.bio %>
+          </p>
+        </section>
+
+        <section id="tech-stack" class="mb-4">
+          <h4 class="section-title">技术栈</h4>
+          <div class="row g-3">
+            <% tech.forEach(item => { %>
+            <% const techItem = item.name ? item : Object.assign({}, item); %>
+            <div class="col-6">
+              <div class="card shadow-sm h-100">
+                <div class="card-body">
+                  <h6 class="mb-1"><%= techItem.name %></h6>
+                  <small class="text-muted"><%= techItem.desc %></small>
+                  <div class="progress mt-2">
+                    <div class="progress-bar bg-<%= techItem.color %>" style="width:<%= techItem.level %>%"></div>
+                  </div>
+                  <small class="text-<%= techItem.color %>"><%= techItem.label %></small>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+        </section>
+      </div><!-- /sticky -->
+    </aside><!-- /右栏 -->
+  </div>
+</div>
+
+<%- include('partials/footer') %>
