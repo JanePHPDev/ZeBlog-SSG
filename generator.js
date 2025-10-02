@@ -248,12 +248,22 @@ function genId(content) {
   return null;
 }
 
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 /* ==================== Markdown ==================== */
 marked.use({
   renderer: {
     code(code, lang) {
       const language = lang || 'none';
-      return `<pre class="language-${language}"><code class="language-${language}">${code}</code></pre>`;
+      const safe = escapeHtml(code);          // ← 关键转义
+      return `<pre class="language-${language}"><code class="language-${language}">${safe}</code></pre>`;
     }
   }
 });
@@ -531,15 +541,15 @@ if (pIdx !== -1 && argv[pIdx + 1]) {
 let mode = 'build';
 if (argv.includes('--debug')) {
   setLogLevel('debug');
-  mode = 'DeBug';
+  mode = '[ZeBlog DeBug Model] Start';
   console.log(chalk.yellow(mode));
 } else if (argv.includes('--watch')) {
   setLogLevel('dev');
-  mode = 'Dev';
+  mode = '[ZeBlog Dev Model] Start';
   console.log(chalk.blue(mode));
 } else {
   setLogLevel('info');
-  mode = 'build';
+  mode = '[ZeBlog Build Model] Start';
   console.log(chalk.green(mode));
 }
 
